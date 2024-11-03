@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: ford_workshop_db
+    environment:
+      POSTGRES_USER: postgres  # Логін для підключення до БД
+      POSTGRES_PASSWORD: 123  # Пароль для підключення до БД
+      POSTGRES_DB: workshop_db  # Назва бази даних
+    ports:
+      - "5432:5432"  # Прокидання порту
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: test
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+    driver: local
