@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>{{ project_name }}</title>
+    <style>
+        /* Налаштування стилів */
+        .student-info {
+            font-style: italic;
+            color: blue;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ project_name }}</h1>
+    <p class="student-info">{{ student_info }}</p>
+
+    <!-- Таблиця Клієнти -->
+    <h2>Клієнти</h2>
+    <table>
+        <tr>
+            <th>Назва компанії</th>
+            <th>Розрахунковий рахунок</th>
+            <th>Телефон</th>
+            <th>Контактна особа</th>
+            <th>Адреса</th>
+        </tr>
+        {% for client in clients %}
+        <tr>
+            <td>{{ client.company_name }}</td>
+            <td>{{ client.account_number }}</td>
+            <td>{{ client.phone }}</td>
+            <td>{{ client.contact_person }}</td>
+            <td>{{ client.address }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Таблиця Автомобілі -->
+    <h2>Автомобілі</h2>
+    <table>
+        <tr>
+            <th>Код автомобіля</th>
+            <th>Марка автомобіля</th>
+            <th>Вартість нової машини</th>
+            <th>Клієнт</th>
+        </tr>
+        {% for car in cars %}
+        <tr>
+            <td>{{ car.car_id }}</td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.price }}</td>
+            <td>{{ car.client.company_name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Таблиця Ремонт -->
+    <h2>Ремонт</h2>
+    <table>
+        <tr>
+            <th>Код ремонту</th>
+            <th>Дата початку ремонту</th>
+            <th>Автомобіль</th>
+            <th>Тип ремонту</th>
+            <th>Вартість однієї години ремонту</th>
+            <th>Знижка (%)</th>
+            <th>Кількість годин для ремонту</th>
+        </tr>
+        {% for repair in repairs %}
+        <tr>
+            <td>{{ repair.repair_id }}</td>
+            <td>{{ repair.start_date }}</td>
+            <td>{{ repair.car.model }}</td>
+            <td>{{ repair.get_repair_type_display }}</td>
+            <td>{{ repair.hourly_rate }}</td>
+            <td>{{ repair.discount }}</td>
+            <td>{{ repair.hours_needed }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
